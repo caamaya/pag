@@ -32,7 +32,7 @@
       background-repeat: no-repeat;
     }
 
-    /* Modificación: Áreas totalmente invisibles y transparentes por defecto */
+    /* Áreas interactivas transparentes */
     .curso-rect {
       position: absolute;
       border: none;
@@ -45,7 +45,7 @@
       align-items: center;
       text-align: center;
       padding: 2px;
-      font-size: 0px; /* Oculta texto HTML */
+      font-size: 0px;
       line-height: 1.1;
       overflow: hidden;
       cursor: pointer;
@@ -54,14 +54,14 @@
     }
 
     .curso-rect:hover {
-      background-color: rgba(0, 0, 0, 0.08); /* Sutil feedback visual al pasar el cursor */
+      background-color: rgba(0, 0, 0, 0.08);
     }
 
     .codigo {
-      display: none; /* Oculta el span de código */
+      display: none;
     }
 
-    /* Estilos de interacción al hacer clic */
+    /* Estilos de interacción */
     .curso-rect.selected {
       background-color: rgba(0, 0, 0, 0.35) !important;
       outline: 3px solid #000000 !important;
@@ -69,7 +69,6 @@
       z-index: 10;
     }
 
-    /* Prerrequisitos (Borde Rojo) */
     .curso-rect.prereq {
       background-color: rgba(226, 75, 74, 0.25) !important;
       outline: 3px solid #E24B4A;
@@ -77,7 +76,6 @@
       z-index: 5;
     }
 
-    /* Sucesores / Desbloquea (Borde Verde) */
     .curso-rect.postreq {
       background-color: rgba(29, 158, 117, 0.25) !important;
       outline: 3px solid #1D9E75;
@@ -85,9 +83,140 @@
       z-index: 5;
     }
 
-    /* Atenuar cursos no relacionados */
     .curso-rect.dimmed {
       opacity: 0.15;
+    }
+
+    /* Estilos Modales */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      width: 90%;
+      max-width: 850px;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      background-color: #1a2530;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .info-card {
+      background-color: #eef2ff;
+      border-left: 5px solid #3b82f6;
+      padding: 16px 20px;
+      border-radius: 4px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+
+    .modal-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+
+    .modal-table th, .modal-table td {
+      border: 1px solid #e0e0e0;
+      padding: 9px 11px;
+      text-align: left;
+    }
+
+    .modal-table th {
+      background-color: #f0f4f8;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .modal-table tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    .modal-table tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    /* Badges de Grupo */
+    .badge-grupo1 {
+      display: inline-block;
+      padding: 3px 8px;
+      background-color: #2563eb;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-grupo3 {
+      display: inline-block;
+      padding: 3px 8px;
+      background-color: #66a329;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-grupo4 {
+      display: inline-block;
+      padding: 3px 8px;
+      background-color: #e87dd3;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -152,51 +281,174 @@
 
 </div>
 
+<!-- MODAL 1: BOLSA 1 -->
+<div class="modal-overlay" id="modalBolt1">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bolsa de Créditos Electivos</h2>
+      <button class="modal-close" onclick="cerrarModal('modalBolt1')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-card">
+        Para esta bolsa de créditos puedes ver o inscribir <strong>cualquier curso de Ingeniería Industrial</strong>, de cualquier perfil, incluido el mismo de <strong>Producción, Logística y Calidad</strong>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: BOLSA 2 -->
+<div class="modal-overlay" id="modalBolt2">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bolsa de Créditos Electivos - Cursos Perfil Logística Producción y Calidad</h2>
+      <button class="modal-close" onclick="cerrarModal('modalBolt2')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom: 12px; color: #555;">Listado de electivas posibles:</p>
+      <table class="modal-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>Créditos</th>
+            <th>Grupo</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyBolt2">
+          <!-- Carga dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: BOLSA 3 -->
+<div class="modal-overlay" id="modalBolt3">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Bolsa de Créditos Electivos - Cursos C&Ing y Otras Carreras</h2>
+      <button class="modal-close" onclick="cerrarModal('modalBolt3')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-bottom: 12px; color: #555;">Listado de electivas posibles:</p>
+      <table class="modal-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>Créditos</th>
+            <th>Grupo</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyBolt3">
+          <!-- Carga dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <script>
+  // Datos embebidos para electivas-grupo 1 : Perfil IInd
+  const datosBolt2 = [
+    { codigo: "IIND-3218", curso: "FUNDAMENTOS DE LA CALIDAD", credito: "3", grupo: "OBLIGATORIA" },
+    { codigo: "IIND-2201", curso: "CONTROL DE PRODUCCIÓN", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-3202", curso: "GERENCIA DE OPERACIONES", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-3204", curso: "ABASTECIMIENTO ESTRATÉGICO", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-3208", curso: "DIS. AVANZADO DE NUEVOS PROD.", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-3209", curso: "INNOVACIÓN TECNOLÓGICA", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-3309", curso: "RELACIONES INDUSTRIALES", credito: "3", grupo: "IIND" },
+    { codigo: "IIND-4109", curso: "PRESCRIP ANALYTICS: HEURISTICS", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4115", curso: "NETWORK FLOW & TRANSP ANALYTIC", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4200", curso: "MODELOS CONTROL PRODUCC.", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4202", curso: "PROGRAMACION DE PRODUCCION", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4213", curso: "DISEÑO DE EXPERIM. INGE.", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4215", curso: "CONTROL DE CALIDAD AVANZADO", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4223", curso: "PROCESOS Y SISTEMAS DE MANUFACTURA", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4232", curso: "EXCELENCIA OPERACIONAL A TRAVÉS DE LEAN Y SIX SIGMA", credito: "4", grupo: "IIND" },
+    { codigo: "IIND-4360", curso: "DISEÑO Y DES DE PRODUCTOS SOST", credito: "4", grupo: "IIND" },
+    { codigo: "EDCO-4007", curso: "LEAN SIX SIGMA BLACK BELT", credito: "4", grupo: "IIND" }
+  ];
+
+  // Datos embebidos para electivas-g3y4-C&Ing-Otra.csv
+  const datosBolt3 = [
+    { codigo: "DPRO-4100", curso: "DIS. OPTIMO PROCESOS PRODUCTOS", credito: "4", grupo: "C&ING" },
+    { codigo: "DPRO-4102", curso: "SEGURIDAD DE PROCESOS Y PRODUC", credito: "4", grupo: "C&ING" },
+    { codigo: "DPRO-4202", curso: "CONTROL OPTIMO DE PROCESOS", credito: "4", grupo: "C&ING" },
+    { codigo: "FISI-2526", curso: "MÉTODOS COMPUTACIONALES 1", credito: "3", grupo: "C&ING" },
+    { codigo: "FISI-2540", curso: "TERMODINÁMICA", credito: "3", grupo: "C&ING" },
+    { codigo: "IBIO-3260", curso: "MODELADO Y SIMULACIÓN SIST BIO", credito: "3", grupo: "C&ING" },
+    { codigo: "IBIO-3270", curso: "DISEÑO DE EXP. Y BIOESTADÍSTIC", credito: "3", grupo: "C&ING" },
+    { codigo: "ICYA-1117", curso: "MECÁNICA DE MATERIALES", credito: "3", grupo: "C&ING" },
+    { codigo: "ICYA-3003", curso: "GERENCIA DE PROYECTOS", credito: "3", grupo: "C&ING" },
+    { codigo: "ICYA-3203", curso: "GERENCIA PROY CONSTRUCCION", credito: "3", grupo: "C&ING" },
+    { codigo: "IELE-2010", curso: "MATERIALES PARA IEE", credito: "3", grupo: "C&ING" },
+    { codigo: "IELE-3150", curso: "ENERGÍAS RENOVABLES (IELE)", credito: "3", grupo: "C&ING" },
+    { codigo: "IELE-3336", curso: "AUTOMATIZACIÓN INDUSTRIAL", credito: "3", grupo: "C&ING" },
+    { codigo: "IELE-3338", curso: "ROBÓTICA", credito: "3", grupo: "C&ING" },
+    { codigo: "IELE-4204", curso: "PPIOS BÁSICOS NANOTECNOLOGÍA", credito: "4", grupo: "C&ING" },
+    { codigo: "IELE-4801", curso: "GERENCIA AVANZADA DE PROYECTOS", credito: "4", grupo: "C&ING" },
+    { codigo: "IMEC-1410", curso: "CIENCIA DE MATERIALES", credito: "3", grupo: "C&ING" },
+    { codigo: "IMEC-1505", curso: "DISEÑO GRÁFICO EN INGENIERÍA", credito: "3", grupo: "C&ING" },
+    { codigo: "IMEC-3351", curso: "EVALUACIÓN TÉCNICA Y FINANCIERA DE PROYECTOS DE ENERGÍAS RENOVABLES", credito: "3", grupo: "C&ING" },
+    { codigo: "IMEC-3461", curso: "PROCES. MANUFACTURA INDUSTRIAL", credito: "3", grupo: "C&ING" },
+    { codigo: "IMEC-3506", curso: "MANTENIMIENTO INDUSTRIAL", credito: "3", grupo: "C&ING" },
+    { codigo: "IQUI-2010", curso: "FUNDAMENTOS PROC. INDUSTRIALES", credito: "3", grupo: "C&ING" },
+    { codigo: "IQUI-3010", curso: "OPERACIONES UNITARIAS (IQUI)", credito: "3", grupo: "C&ING" },
+    { codigo: "IQUI-3031", curso: "DISEÑO PLANTAS DE PROCESO", credito: "3", grupo: "C&ING" },
+    { codigo: "IQUI-3515", curso: "PROCESS OPERATION AND MAINTENANCE ( IQUIM)", credito: "3", grupo: "C&ING" },
+    { codigo: "IQYA-2010", curso: "BALANCES DE MATERIA Y ENERGÍA", credito: "3", grupo: "C&ING" },
+    { codigo: "IQYA-2020", curso: "TERMODINÁMICA", credito: "3", grupo: "C&ING" },
+    { codigo: "IQYA-2031", curso: "PROYECTO DE OPERACIONES UNITAR", credito: "3", grupo: "C&ING" },
+    { codigo: "IQYA-3014", curso: "DISEÑO DE PLANTAS", credito: "4", grupo: "C&ING" },
+    { codigo: "IQYA-4800", curso: "DISEÑO Y DESAR PRODUC SOSTENI", credito: "4", grupo: "C&ING" },
+    { codigo: "ISIS-1404", curso: "TI EN LAS ORGANIZACIONES", credito: "3", grupo: "C&ING" },
+    { codigo: "ISIS-2007", curso: "DISEÑO PROD. E INNOVACIÓN TI", credito: "3", grupo: "C&ING" },
+    { codigo: "ISIS-2403", curso: "ARQUITECTURA EMPRESARIAL", credito: "3", grupo: "C&ING" },
+    { codigo: "ISIS-3301", curso: "INTELIGENCIA DE NEGOCIOS", credito: "3", grupo: "C&ING" },
+    { codigo: "ISIS-4822", curso: "VISUAL ANALYTICS", credito: "4", grupo: "C&ING" },
+    { codigo: "MATE-3164", curso: "COMBINATORIA Y TEORÍA DE GRAFOS", credito: "3", grupo: "C&ING" },
+    { codigo: "MATE-3216", curso: "INTRODUCCIÓN A SISTEMAS DINÁMICOS", credito: "3", grupo: "C&ING" },
+    { codigo: "MATE-3712", curso: "TEORÍA DE JUEGOS", credito: "3", grupo: "C&ING" },
+    { codigo: "MBIT-4101", curso: "HABILIDADES GERENCIALES EN TI", credito: "4", grupo: "C&ING" },
+    { codigo: "MBIT-4201", curso: "EMPRENDIMIENTO Y COMERCIO ELEC", credito: "4", grupo: "C&ING" },
+    { codigo: "ADMI-2106", curso: "GERENCIA DE LA SOSTENIBILIDAD", credito: "3", grupo: "OTRA" },
+    { codigo: "ADMI-2403", curso: "OPERACIONES Y LOGÍSTICA", credito: "3", grupo: "OTRA" },
+    { codigo: "ADMI-3109", curso: "ELEC PLANES DE NEGOCIOS", credito: "3", grupo: "OTRA" },
+    { codigo: "ADMI-3110", curso: "EMPRENDIMIENTO E INNOVACIÓN", credito: "3", grupo: "OTRA" },
+    { codigo: "ARQT-2602", curso: "FABRICACIÓN DIGITAL", credito: "3", grupo: "OTRA" },
+    { codigo: "DERE-3211", curso: "PROPIEDAD INDUSTRIAL", credito: "3", grupo: "OTRA" },
+    { codigo: "DISO-1314", curso: "BOCETACIÓN EXPERIMENTAL", credito: "3", grupo: "OTRA" },
+    { codigo: "DISO-2417", curso: "MODELADO SIMULACIÓN DIGITAL", credito: "3", grupo: "OTRA" },
+    { codigo: "DISO-3712", curso: "DISEÑO DE SERVICIOS", credito: "3", grupo: "OTRA" },
+    { codigo: "DISO-3925", curso: "PRODUCCIÓN CREATIVA", credito: "4", grupo: "OTRA" },
+    { codigo: "ECON-2105", curso: "TEORÍA DE JUEGOS", credito: "3", grupo: "OTRA" },
+    { codigo: "ECON-3401", curso: "COMERCIO INTERNACIONAL", credito: "3", grupo: "OTRA" },
+    { codigo: "MMER-4307", curso: "INNOV. Y DESARROLLO PROD-SERV", credito: "2", grupo: "OTRA" }
+  ];
+
   // Mapeo de Prerrequisitos de cada curso
   const prerequisitos = {
-    "CBU-1": [],
-    "PCC": [],
-    "MATE-1203": [],
-    "ISIS-1221": [],
-    "IIND-1000": [],
-    "CBU-2": [],
-    "CBU-3": [],
-    "MATE-1214": ["MATE-1203"],
-    "FISI-1518": ["MATE-1203"],
-    "IIND-2111": ["ISIS-1221"],
-    "ECON-2108": [],
+    "CBU-1": [], "PCC": [], "MATE-1203": [], "ISIS-1221": [], "IIND-1000": [],
+    "CBU-2": [], "CBU-3": [],
+    "MATE-1214": ["MATE-1203"], "FISI-1518": ["MATE-1203"], "IIND-2111": ["ISIS-1221"], "ECON-2108": [],
     "CBU-4": [],
-    "MATE-1105": ["MATE-1203"],
-    "FISI-1528": ["FISI-1518"],
-    "IIND-2205": ["IIND-2111"],
-    "IIND-2405": ["ECON-2108", "IIND-1000", "ISIS-1221"],
-    "IIND-2001": ["IIND-1000", "IIND-2111", "PCC"],
+    "MATE-1105": ["MATE-1203"], "FISI-1528": ["FISI-1518"], "IIND-2205": ["IIND-2111"],
+    "IIND-2405": ["ECON-2108", "IIND-1000", "ISIS-1221"], "IIND-2001": ["IIND-1000", "IIND-2111", "PCC"],
     "CBU-5": [],
-    "MATE-1207": ["MATE-1105", "MATE-1214"],
-    "IIND-2401": ["IIND-2405", "MATE-1203", "IIND-1000"],
-    "IIND-2106": ["MATE-1105", "MATE-1214"],
-    "IIND-2501": ["MATE-1105", "IIND-2111"],
-    "IIND-2304": ["MATE-1105", "MATE-1214", "IIND-1000"],
-    "LENG-RD": [],
+    "MATE-1207": ["MATE-1105", "MATE-1214"], "IIND-2401": ["IIND-2405", "MATE-1203", "IIND-1000"],
+    "IIND-2106": ["MATE-1105", "MATE-1214"], "IIND-2501": ["MATE-1105", "IIND-2111"],
+    "IIND-2304": ["MATE-1105", "MATE-1214", "IIND-1000"], "LENG-RD": [],
     "DERE-1300": [],
     "IIND-2502": ["ISIS-1221", "PCC", "MATE-1207", "IIND-2106", "LENG-RD"],
-    "IIND-2305": ["IIND-2106", "IIND-2304"],
-    "IIND-2206": ["IIND-2501", "IIND-2205"],
-    "IIND-2112": ["MATE-1207", "IIND-2106"],
-    "ELEC-CIE-1": [],
-    "ELEC-ING": [],
-    "BOLT-1": [],
+    "IIND-2305": ["IIND-2106", "IIND-2304"], "IIND-2206": ["IIND-2501", "IIND-2205"],
+    "IIND-2112": ["MATE-1207", "IIND-2106"], "ELEC-CIE-1": [], "ELEC-ING": [], "BOLT-1": [],
     "IIND-3010": ["IIND-2001", "IIND-2205", "IIND-2304", "IIND-2401", "IIND-2112", "LENG-RD", "IIND-2501"],
-    "CLE-1": [],
-    "ELEC-CIE-2": [],
-    "BOLT-2": [],
-    "CLE-2": [],
-    "BOLT-3": [],
+    "CLE-1": [], "ELEC-CIE-2": [], "BOLT-2": [], "CLE-2": [], "BOLT-3": [],
     "IIND-3011": ["IIND-2502", "IIND-2305", "IIND-2112", "IIND-2206", "IIND-3010"]
   };
 
-  // Construir mapa inverso de Sucesores (Qué cursos desbloquea cada uno)
+  // Mapa inverso de Sucesores
   const sucesores = {};
   Object.keys(prerequisitos).forEach(id => { sucesores[id] = []; });
   Object.entries(prerequisitos).forEach(([cursoId, pres]) => {
@@ -210,7 +462,6 @@
   function seleccionarCurso(id) {
     const todosCursos = document.querySelectorAll('.curso-rect');
 
-    // Si vuelve a hacer clic en el mismo, se limpia la selección
     if (seleccionadoActual === id) {
       seleccionadoActual = null;
       todosCursos.forEach(el => el.classList.remove('selected', 'prereq', 'postreq', 'dimmed'));
@@ -218,7 +469,6 @@
     }
 
     seleccionadoActual = id;
-
     const presSet = new Set(prerequisitos[id] || []);
     const sucSet = new Set(sucesores[id] || []);
 
@@ -238,10 +488,57 @@
     });
   }
 
-  // Asignar eventos de clic a cada tarjeta
+  // Renderizar filas de las tablas
+  function poblarTabla(listaDatos, tbodyId) {
+    const tbody = document.getElementById(tbodyId);
+    if (!tbody || tbody.children.length > 0) return;
+
+    listaDatos.forEach(item => {
+      const grupo = item.grupo.toUpperCase();
+      let badgeClass = "badge-grupo1";
+      if (grupo === "C&ING") badgeClass = "badge-grupo3";
+      if (grupo === "OTRA") badgeClass = "badge-grupo4";
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${item.codigo}</td>
+        <td>${item.curso}</td>
+        <td>${item.credito}</td>
+        <td><span class="${badgeClass}">${grupo}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Manejo de Modales
+  function abrirModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('active');
+      if (modalId === 'modalBolt2') poblarTabla(datosBolt2, 'tbodyBolt2');
+      if (modalId === 'modalBolt3') poblarTabla(datosBolt3, 'tbodyBolt3');
+    }
+  }
+
+  function cerrarModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  });
+
   document.querySelectorAll('.curso-rect').forEach(el => {
     const id = el.id.replace('c-', '');
-    el.addEventListener('click', () => seleccionarCurso(id));
+    el.addEventListener('click', () => {
+      if (id === 'BOLT-1') abrirModal('modalBolt1');
+      else if (id === 'BOLT-2') abrirModal('modalBolt2');
+      else if (id === 'BOLT-3') abrirModal('modalBolt3');
+      seleccionarCurso(id);
+    });
   });
 </script>
 
